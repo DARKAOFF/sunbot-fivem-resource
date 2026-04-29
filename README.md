@@ -18,7 +18,7 @@ Ressource FiveM officielle pour connecter un serveur GTA/FiveM au panel SunBot.
 4. Place le dossier dans les `resources` de ton serveur FiveM.
 5. Ouvre `config.lua`.
 6. Remplace `CHANGE_ME` par la cle API affichee dans le module FiveM du panel SunBot.
-7. Configure l'URL du panel si ton panel n'est pas en local.
+7. Verifie que l'URL du panel pointe vers `https://sun-bot.fr/api/fivem`.
 8. Ajoute la ressource dans ton `server.cfg`.
 
 ```cfg
@@ -28,7 +28,7 @@ ensure sunbot-bridge
 ## Configuration
 
 ```lua
-SunBotConfig.ApiUrl = "https://ton-panel.fr/api/fivem"
+SunBotConfig.ApiUrl = "https://sun-bot.fr/api/fivem"
 SunBotConfig.ApiKey = "CLE_API_DU_PANEL"
 SunBotConfig.Framework = "standalone"
 ```
