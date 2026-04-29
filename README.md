@@ -1,0 +1,1 @@
+# sunbot-fivem-resource
