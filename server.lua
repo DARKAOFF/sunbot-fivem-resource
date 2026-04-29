@@ -1,4 +1,32 @@
+local function isConfigured()
+  return SunBotConfig
+    and SunBotConfig.ApiUrl
+    and SunBotConfig.ApiUrl ~= ""
+    and SunBotConfig.ApiKey
+    and SunBotConfig.ApiKey ~= ""
+    and SunBotConfig.ApiKey ~= "CHANGE_ME"
+end
+
+local function safeDecode(value)
+  local ok, result = pcall(function()
+    return json.decode(value or "{}")
+  end)
+
+  if not ok then
+    print("[SunBot] Invalid JSON response from panel.")
+    return nil
+  end
+
+  return result
+end
+
 local function postJson(url, payload, callback)
+  if not isConfigured() then
+    print("[SunBot] Bridge not configured. Set SunBotConfig.ApiKey in config.lua.")
+    callback(0, nil)
+    return
+  end
+
   PerformHttpRequest(url, function(statusCode, response)
     callback(statusCode, response)
   end, "POST", json.encode(payload or {}), {
@@ -10,7 +38,8 @@ end
 local function sendHeartbeat()
   postJson(SunBotConfig.ApiUrl .. "/heartbeat", {
     players = #GetPlayers(),
-    framework = SunBotConfig.Framework
+    framework = SunBotConfig.Framework or "standalone",
+    endpoint = GetConvar("sv_hostname", "")
   }, function(statusCode, _)
     if statusCode ~= 200 then
       print("[SunBot] Heartbeat failed with status " .. tostring(statusCode))
@@ -67,7 +96,7 @@ local function pollCommands()
       return
     end
 
-    local parsed = json.decode(response or "{}")
+    local parsed = safeDecode(response)
     local command = parsed and parsed.command or nil
 
     if not command or not command.id then
@@ -97,4 +126,4 @@ end)
 
 RegisterCommand("sunbot_test", function(source)
   print("[SunBot] Resource active.")
-end, true)
+end, false)
