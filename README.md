@@ -16,10 +16,11 @@ Ressource FiveM officielle pour connecter un serveur GTA/FiveM au panel SunBot.
 2. Decompresse l'archive.
 3. Renomme le dossier en `sunbot-bridge`.
 4. Place le dossier dans les `resources` de ton serveur FiveM.
-5. Ouvre `config.lua`.
-6. Remplace `CHANGE_ME` par la cle API affichee dans le module FiveM du panel SunBot.
-7. Verifie que l'URL du panel pointe vers `https://sun-bot.fr/api/fivem`.
-8. Ajoute la ressource dans ton `server.cfg`.
+5. Ouvre le module FiveM sur le panel SunBot pour generer la cle API.
+6. Ouvre `config.lua`.
+7. Remplace `CHANGE_ME` par la cle API affichee dans le module FiveM du panel SunBot.
+8. Verifie que l'URL du panel pointe vers `https://sun-bot.fr/api/fivem`.
+9. Ajoute la ressource dans ton `server.cfg`.
 
 ```cfg
 ensure sunbot-bridge
@@ -55,6 +56,8 @@ La ressource doit afficher :
 ```text
 [SunBot] Resource active.
 ```
+
+Si la console affiche `Bridge not configured`, la cle API n'a pas encore ete remplacee dans `config.lua`.
 
 ## Commandes prises en charge
 
